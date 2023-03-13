@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 st.title('Generos de musica')
 DATA_URL = ('top10s.csv')
+#DATA_URL = ('music_genre.csv')
+#DATE_COLUMN = 'top genre'
 
 @st.cache
 def load_data(nrows):
@@ -80,13 +82,13 @@ sidebar.write("\n")
 agree = sidebar.checkbox("Clic para ver histograma")
 if agree:
   fig_genre=px.bar(data,
-                    x="top genre",
-                    y=data.index,
-                    orientation="v",
-                    title="Cantidad de canciones que hay por genero",
-                    labels=dict(total="Total Generos", genre="Top Generos"),
-                    color_discrete_sequence=["#7ECBB4"],
-                    template="plotly_white")
+                          x="top genre",
+                          y=data.index,
+                          orientation="v",
+                          title="Cantidad de canciones que hay por genero",
+                          labels=dict(average_genre="Total Generos", genre="top genre"),
+                          color_discrete_sequence=["#7ECBB4"],
+                          template="plotly_white")
 
   st.plotly_chart(fig_genre)
 
@@ -95,32 +97,15 @@ st.header("Grafica de barras")
 sidebar.write("\n")
 agree = sidebar.checkbox("Clic para ver grafica de barras")
 if agree:
-   #filter_data = data[data['top genre']]
-   #canada_pop=filter_data['canadian_pop']
-   #pop=filter_data['pop']
    fig_barra=px.bar(data,
-                    x=data.get['canadian_pop'],
-                    y=data.get['pop'],
+                    x="top genre",
+                    y=data.index,
                     orientation="v",
                     title="Cantidad de canciones que hay por genero",
-                    labels=dict(canada_pop="Pop de canada", pop="Pop"),
+                    labels=dict(average_genre="Total Generos", genre="top genre"),
                     color_discrete_sequence=["#7ECBB4"],
                     template="plotly_white")
    st.plotly_chart(fig_barra)
 
 #grafica scatter
-st.header("Grafica Scatter")
-sidebar.write("\n")
-agree = sidebar.checkbox("Clic para ver grafica scatter")
-if agree:
-    year=data['year']
-    artist=data['artist']
-    dnce=data['dnce']
-    fig_age=px.scatter(data,
-                   x=year,
-                   y=dnce,
-                   color=artist,
-                   title="Danceabilidad de las canciones de los artistas",
-                   labels=dict(year="Year", artist="Artist", dnce="Danceability"),
-                   template="plotly_white")
-    st.plotly_chart(fig_age)
+
