@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import codecs
 import plotly.express as px
+import matplotlib.pyplot as plt
 
 st.title('Generos de musica')
 DATA_URL = ('top10s.csv')
@@ -54,7 +55,7 @@ if(button_name):
 #:::::::::genero musica:::::::::::
 st.header("Filtro de canciones por genero:")
 sidebar.write("\n")
-@st.cache
+@st.cache_data
 def load_data_bygenre(g):
     doc = codecs.open(DATA_URL, 'rU', 'latin1')
     data = pd.read_csv(doc)
@@ -71,13 +72,13 @@ if (btnFilterbyG):
     st.dataframe(filtro)
 
 #::::::::::: Multiselect ::::::::::::
-st.header("Multiselect:")
-sidebar.write("\n")
-year = sidebar.multiselect("Selecciona año(s):",
-                                options=data['year'].unique())
+#st.header("Multiselect:")
+#sidebar.write("\n")
+#year = sidebar.multiselect("Selecciona año(s):",
+#                                options=data['year'].unique())
 
-df_selection=data.query("year == @year")
-st.write("Años seleccionados", df_selection)
+#df_selection=data.query("year == @year")
+#st.write("Años seleccionados", df_selection)
 sidebar.markdown("__")
 
 #::::::::::: histograma :::::::::::
@@ -85,6 +86,13 @@ sidebar.title("Graficas:")
 st.header("Histograma")
 agree = sidebar.checkbox("Clic para ver histograma")
 if agree:
+  #fig, ax = plt.subplots()
+  #ax.hist(data["year"])
+  #st.header("Histograma:")
+  #st.pyplot(fig)
+  #st.write("Cantidad de canciones que salieron por año ")
+
+  data = load_data(500)
   fig_genre=px.bar(data,
                     x=data['top genre'],
                     y=data.index,
